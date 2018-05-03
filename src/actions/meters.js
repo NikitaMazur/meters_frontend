@@ -82,6 +82,10 @@ export const sendReadings = (data) => {
                         alert('OK')
                         break;
 
+                    case 400:
+                        dispatch({type: 'SHOW_READING_WARNING', warning: true})
+                        break;
+
                     default:
                         break;
                 }

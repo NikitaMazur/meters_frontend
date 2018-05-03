@@ -3,6 +3,7 @@ const initState = {
     metrics: [],
     metersByLocation: [],
     meterData: [],
+    warning: false,
 }
 
 export default function (state = initState, action) {
@@ -21,6 +22,10 @@ export default function (state = initState, action) {
 
         case 'GET_METRICS_DATA': {
             return { ...state, metrics: action.metrics }
+        }
+
+        case 'SHOW_READING_WARNING': {
+            return { ...state, warning: action.warning }
         }
 
         default:

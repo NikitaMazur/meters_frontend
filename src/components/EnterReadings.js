@@ -7,6 +7,7 @@ import FileBase64 from 'react-file-base64'
 import LocationSearchInput from './LocationSearchInput';
 import { Container, FullHeightWrapper, MainTitle } from './App';
 import { METER_PHOTO } from '../constants/img';
+import Modal from './Modal';
 
 const TrackingSubmitButton = styled(Button)`
     margin: 15px 0;
@@ -67,7 +68,16 @@ export default class EnterReadings extends React.Component {
     }
 
     onSubmit = () => {
-        this.props.sendReadings(this.state.readings)
+        this.props.sendReadings({...this.state.readings, forceUpdate: false})
+    }
+
+    confirmModal = () => {
+        this.props.sendReadings({...this.state.readings, forceUpdate: true})
+        this.props.closeModal()
+    }
+
+    cancelModal = () => {
+        this.props.closeModal()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,7 +90,8 @@ export default class EnterReadings extends React.Component {
     }
 
     render() {
-        const { metersByLocation } = this.props;
+        console.log(this.state.readings)
+        const { metersByLocation, warning } = this.props;
         return (
             <FullHeightWrapper>
                 <Container>
@@ -115,6 +126,14 @@ export default class EnterReadings extends React.Component {
                         )}
                     </FormGroup>
                 </Container>
+                {warning && (
+                    <Modal
+                        title="Warning"
+                        text="The readings of the current month is less than the previous month. Do you want to overwrite them?"
+                        onSubmit={this.confirmModal}
+                        onCancel={this.cancelModal}
+                    />
+                )}
             </FullHeightWrapper>
         );
     }

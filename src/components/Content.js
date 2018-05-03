@@ -59,7 +59,7 @@ const Content = (props) => {
                 admin={role === 'ADMIN'}
             />
             <AdminRoute
-                path='/meters/:id'
+                path='/meters/detail/:id'
                 redirectTo='/meters/reading'
                 role={role}
                 component={LoggedinPages}
