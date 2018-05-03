@@ -5,10 +5,18 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 const DropdownWrapper = styled.div`
   border-radius: 4px;
   box-shadow: 0 0px 3px rgba(0,0,0,.3);
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
 
   & > div {
     padding: 10px;
   }
+`;
+
+const PlacesAutocompleteWrapper = styled.div`
+  position: relative;
 `;
 
 export default class LocationSearchInput extends Component {
@@ -31,7 +39,7 @@ export default class LocationSearchInput extends Component {
         onSelect={this.props.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-          <div>
+          <PlacesAutocompleteWrapper>
             <input
               {...getInputProps({
                 placeholder: 'Search Places ...',
@@ -52,7 +60,7 @@ export default class LocationSearchInput extends Component {
                 )
               })}
             </DropdownWrapper>
-          </div>
+          </PlacesAutocompleteWrapper>
         )}
       </PlacesAutocomplete>
     );
