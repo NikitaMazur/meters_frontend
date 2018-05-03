@@ -102,6 +102,9 @@ export default class EnterReadings extends React.Component {
                             <LocationSearchInput handleSelect={this.handleSelect} />
                             <HelpBlock></HelpBlock>
                         </div>
+                        {metersByLocation.length === 0 && (
+                            <p>No meters on this location</p>
+                        )}
                         {metersByLocation.length > 0 && (
                             <div>
                                 <ControlLabel>Select meter</ControlLabel>
