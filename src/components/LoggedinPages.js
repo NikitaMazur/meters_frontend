@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const CompanyLogo = styled.img`
     max-width: 100px;
 `;
 
-export default class LoggedinPages extends React.Component {
+export default class LoggedinPages extends Component {
     render() {
         return (
             <div>

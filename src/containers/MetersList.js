@@ -2,10 +2,10 @@ import MetersList from '../components/MetersList';
 import { connect } from 'react-redux';
 import { getMeters } from '../actions/meters';
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        getMeters: (data) => {dispatch(getMeters(data))},
-        meterData: (data) => {dispatch({type: 'METER_DATA', meterData: data})}
+        getMeters: data => dispatch(getMeters(data)),
+        meterData: data => dispatch({type: 'METER_DATA', meterData: data}),
     }
 }
 

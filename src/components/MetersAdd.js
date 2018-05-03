@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { FormGroup, FormControl, ControlLabel, HelpBlock , Button} from 'react-bootstrap';
@@ -11,7 +11,7 @@ const TrackingSubmitButton = styled(Button)`
 `;
 
 
-export default class MetersAdd extends React.Component {
+export default class MetersAdd extends Component {
     constructor(props) {
         super(props);
 
@@ -65,7 +65,6 @@ export default class MetersAdd extends React.Component {
     }
 
     render() {
-        console.log(this.state.newMeter)
         return (
             <FullHeightWrapper>
                 <Container>

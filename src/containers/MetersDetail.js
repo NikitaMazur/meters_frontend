@@ -2,9 +2,9 @@ import MetersDetail from '../components/MetersDetail';
 import { connect } from 'react-redux';
 import { getSingleMeter } from '../actions/meters';
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        getSingleMeter: (id) => {dispatch(getSingleMeter(id))},
+        getSingleMeter: id => dispatch(getSingleMeter(id)),
     }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 
@@ -22,7 +22,7 @@ export const AuthTitle = styled.h2`
     text-align: center;
 `;
 
-export default class Auth extends React.Component {
+export default class Auth extends Component {
     render() {
         return (
             <FullHeightWrapper>

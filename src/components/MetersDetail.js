@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import moment from 'moment';
 
 import { MainTitle } from './App';
 
-export default class MetersDetail extends React.Component {
+export default class MetersDetail extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getSingleMeter(this.props.match.params.id);
     }
 

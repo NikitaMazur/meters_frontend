@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PlacesAutocomplete from 'react-places-autocomplete'
 
-export default class LocationSearchInput extends React.Component {
+export default class LocationSearchInput extends Component {
   constructor(props) {
     super(props);  
-    this.state = { address: '' }
+    this.state = {
+      address: '',
+    }
   }
 
   handleChange = (address) => {

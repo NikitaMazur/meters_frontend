@@ -7,4 +7,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(LoggedinPages)
+export default connect(mapStateToProps)(LoggedinPages)

@@ -3,7 +3,7 @@ import request from 'superagent'
 
 import { PARCEL_URL } from '../constants/api'
 
-export const Login = (user) => {
+export const login = (user) => {
     return (dispatch) => {
         request
             .post(`${PARCEL_URL}/auth`)

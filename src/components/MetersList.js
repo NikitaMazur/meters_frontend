@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
 import { MainTitle } from './App';
 
-export default class MetersList extends React.Component {
+export default class MetersList extends Component {
     constructor(props) {
         super(props);
 
@@ -14,12 +14,12 @@ export default class MetersList extends React.Component {
         }
     }
 
-    getMeterData = (data) => {
-        this.props.meterData(data);
+    componentDidMount() {
+        this.props.getMeters();
     }
 
-    componentWillMount() {
-        this.props.getMeters();
+    getMeterData = (data) => {
+        this.props.meterData(data);
     }
 
     render() {

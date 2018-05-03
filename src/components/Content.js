@@ -1,41 +1,8 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import Auth from '../containers/Auth';
 import LoggedinPages from '../containers/LoggedinPages';
-
-const PrivateRoute = ({ needRedirect, redirectTo, component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props =>
-            (needRedirect ? (
-                <Component {...props}>
-                    {rest.children}
-                </Component>
-            ) : (
-                <Redirect
-                    to={{ pathname: redirectTo }}
-                />
-            ))
-        }
-    />
-);
-
-const AdminRoute = ({ role, redirectTo, component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props =>
-            (role === "ADMIN" ? (
-                <Component {...props}>
-                    {rest.children}
-                </Component>
-            ) : (
-                <Redirect
-                    to={{ pathname: redirectTo }}
-                />
-            ))
-        }
-    />
-);
+import { PrivateRoute, AdminRoute } from './LoggedinRoutes'
 
 const Content = (props) => {
     const { login, role } = props;

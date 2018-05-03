@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FormGroup, FormControl, ControlLabel, HelpBlock , Button} from 'react-bootstrap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -14,7 +14,7 @@ const TrackingSubmitButton = styled(Button)`
 `;
 
 
-export default class EnterReadings extends React.Component {
+export default class EnterReadings extends Component {
     constructor(props) {
         super(props);
 
@@ -30,6 +30,15 @@ export default class EnterReadings extends React.Component {
             }
 
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.metersByLocation.length > 0 && this.setState({
+            readings: {
+                ...this.state.readings,
+                meterId: nextProps.metersByLocation[0].id,
+            }
+        })
     }
 
     handleSelect = (address) => {
@@ -80,17 +89,7 @@ export default class EnterReadings extends React.Component {
         this.props.closeModal()
     }
 
-    componentWillReceiveProps(nextProps) {
-        nextProps.metersByLocation.length > 0 && this.setState({
-            readings: {
-                ...this.state.readings,
-                meterId: nextProps.metersByLocation[0].id,
-            }
-        })
-    }
-
     render() {
-        console.log(this.state.readings)
         const { metersByLocation, warning } = this.props;
         return (
             <FullHeightWrapper>
