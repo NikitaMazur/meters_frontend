@@ -1,5 +1,15 @@
-import React, { Component } from 'react'
-import PlacesAutocomplete from 'react-places-autocomplete'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import PlacesAutocomplete from 'react-places-autocomplete';
+
+const DropdownWrapper = styled.div`
+  border-radius: 4px;
+  box-shadow: 0 0px 3px rgba(0,0,0,.3);
+
+  & > div {
+    padding: 10px;
+  }
+`;
 
 export default class LocationSearchInput extends Component {
   constructor(props) {
@@ -28,7 +38,7 @@ export default class LocationSearchInput extends Component {
                 className: 'form-control'
               })}
             />
-            <div className="autocomplete-dropdown-container">
+            <DropdownWrapper>
               {suggestions.map(suggestion => {
                 const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                 // inline style for demonstration purpose
@@ -41,7 +51,7 @@ export default class LocationSearchInput extends Component {
                   </div>
                 )
               })}
-            </div>
+            </DropdownWrapper>
           </div>
         )}
       </PlacesAutocomplete>
