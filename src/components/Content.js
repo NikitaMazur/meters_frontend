@@ -20,8 +20,25 @@ const PrivateRoute = ({ needRedirect, redirectTo, component: Component, ...rest 
     />
 );
 
+const AdminRoute = ({ role, redirectTo, component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            (role === "ADMIN" ? (
+                <Component {...props}>
+                    {rest.children}
+                </Component>
+            ) : (
+                <Redirect
+                    to={{ pathname: redirectTo }}
+                />
+            ))
+        }
+    />
+);
+
 const Content = (props) => {
-    const { login } = props;
+    const { login, role } = props;
     return (
         <div>
             <Route
@@ -34,22 +51,29 @@ const Content = (props) => {
                 needRedirect={!login}
                 component={Auth}
             />
-            <PrivateRoute
+            <AdminRoute
                 path='/meters/list'
-                redirectTo='/login'
-                needRedirect={login}
+                redirectTo='/meters/reading'
+                role={role}
                 component={LoggedinPages}
+                admin={role === 'ADMIN'}
             />
-            <PrivateRoute
+            <AdminRoute
                 path='/meters/:id'
-                redirectTo='/login'
-                needRedirect={login}
+                redirectTo='/meters/reading'
+                role={role}
                 component={LoggedinPages}
             />
             <PrivateRoute
                 path='/meters/reading'
                 redirectTo='/login'
                 needRedirect={login}
+                component={LoggedinPages}
+            />
+            <AdminRoute
+                path='/meters/add'
+                redirectTo='/meters/reading'
+                role={role}
                 component={LoggedinPages}
             />
         </div>

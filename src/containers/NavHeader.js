@@ -7,4 +7,10 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(NavHeader)
+const mapStateToProps = (state) => {
+    return {
+        role: state.auth.role,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavHeader)

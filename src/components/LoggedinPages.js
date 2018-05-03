@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import MetersDetail from '../containers/MetersDetail';
 import MetersList from '../containers/MetersList';
 import EnterReadings from '../containers/EnterReadings';
+import MetersAdd from '../containers/MetersAdd';
 import NavHeader from '../containers/NavHeader';
 import { Container, FullHeightWrapper } from './App';
 
@@ -13,7 +14,6 @@ export const CompanyLogo = styled.img`
 `;
 
 export default class LoggedinPages extends React.Component {
-
     render() {
         return (
             <div>
@@ -21,9 +21,10 @@ export default class LoggedinPages extends React.Component {
                 <FullHeightWrapper>
                     <Container>
                         <div>
-                            <Route exact path="/meters/list" component={MetersList} />
-                            <Route exact path="/meters/detail/:id" component={MetersDetail} />
-                            <Route exact path="/meters/reading" component={EnterReadings} />
+                            <Route path="/meters/list" component={MetersList} />
+                            <Route path="/meters/detail/:id" component={MetersDetail} />
+                            <Route path="/meters/reading" component={EnterReadings} />
+                            <Route path="/meters/add" component={MetersAdd} />
                         </div>
                     </Container>
                 </FullHeightWrapper>

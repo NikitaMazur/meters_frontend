@@ -1,16 +1,16 @@
 import MetersDetail from '../components/MetersDetail';
 import { connect } from 'react-redux';
-import { getIncomingParcels } from '../actions/parcels';
+import { getSingleMeter } from '../actions/meters';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIncomingParcels: () => {dispatch(getIncomingParcels())},
+        getSingleMeter: (id) => {dispatch(getSingleMeter(id))},
     }
 }
 
 const mapStateToProps = state => {
     return {
-      parcels: state.parcels.incomingParcels
+      metrics: state.meters.metrics,
     }
   }
 

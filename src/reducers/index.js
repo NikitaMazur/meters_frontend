@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
 import auth from './auth'
-import parcels from './parcels'
+import meters from './meters'
 
 export default combineReducers({
     auth,
-    parcels,
+    meters,
 })

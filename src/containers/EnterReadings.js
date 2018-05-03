@@ -1,16 +1,19 @@
 import EnterReadings from '../components/EnterReadings';
 import { connect } from 'react-redux';
-import { getIncomingParcels } from '../actions/parcels';
+import { getSingleMeter, getMetersByLocation, sendReadings } from '../actions/meters';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIncomingParcels: (data) => {dispatch(getIncomingParcels(data))},
+        getSingleMeter: (data) => {dispatch(getSingleMeter(data))},
+        getMetersByLocation: (loc) => {dispatch(getMetersByLocation(loc))},
+        sendReadings: (data) => {dispatch(sendReadings(data))},
     }
 }
 
 const mapStateToProps = state => {
     return {
-      parcels: state.parcels.incomingParcels
+      meters: state.meters.incomingmeters,
+      metersByLocation: state.meters.metersByLocation,
     }
   }
 

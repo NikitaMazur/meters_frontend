@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
   return {
-    login: state.auth.login
+    login: state.auth.login,
+    role: state.auth.role,
   }
 }
 

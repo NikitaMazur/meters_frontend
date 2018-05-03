@@ -1,20 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Table, FormControl, Button, ControlLabel } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
-import { CompanyLogo } from './LoggedinPages';
 import { MainTitle } from './App';
-
-const ChangeStatusBlock = styled.div`
-    display: flex;
-    justify-content: flex-start;
-`;
-
-const StyledFormControl = styled(FormControl)`
-    margin-right: 15px;
-    max-width: 300px;
-`;
 
 export default class MetersList extends React.Component {
     constructor(props) {
@@ -26,36 +14,19 @@ export default class MetersList extends React.Component {
         }
     }
 
-    onCheck(item) {
-        this.setState({
-            ids: [...this.state.ids, item.id],
-        })
-    }
-
-    changeStatus(event) {
-        this.setState({
-            status: event.currentTarget.value,
-        })
-    }
-
-    onSubmit() {
-        let obj = {
-            ids: this.state.ids.join(','),
-            status: this.state.status
-        }
-
-        this.props.changeStatus(obj);
+    getMeterData = (data) => {
+        this.props.meterData(data);
     }
 
     componentWillMount() {
-        this.props.getParcels();
+        this.props.getMeters();
     }
 
     render() {
-        const { parcels } = this.props;
+        const { meters } = this.props;
         return (
             <div>
-                {parcels.length !== 0 && (
+                {meters.length !== 0 && (
                     <div>
                         <MainTitle>Meters List</MainTitle>
                         <Table responsive bordered condensed hover>
@@ -69,14 +40,14 @@ export default class MetersList extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {parcels.map((item, index) => {
+                                {meters.map((item, index) => {
                                     return (
                                         <tr key={item.id}>
                                             <td>{index}</td>
-                                            <td><Link to="/meters/detail/23">13612387136</Link></td>
-                                            <td>111</td>
-                                            <td>222</td>
-                                            <td>333</td>
+                                            <td><Link to={`/meters/detail/${item.id}`} onClick={() => this.getMeterData(item)}>{item.number}</Link></td>
+                                            <td>{item.type === 'WATER' && item.lastMetrics ? item.lastMetrics.value : '-'}</td>
+                                            <td>{item.type === 'GAS' && item.lastMetrics ? item.lastMetrics.value : '-'}</td>
+                                            <td>{item.type === 'ELECTRIC' && item.lastMetrics ? item.lastMetrics.value : '-'}</td>
                                         </tr>
                                     );
                                 })}

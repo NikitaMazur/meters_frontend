@@ -1,1 +1,1 @@
-export const PARCEL_URL = 'https://whispering-gorge-77029.herokuapp.com';
+export const PARCEL_URL = 'https://energy-meter-api.herokuapp.com';

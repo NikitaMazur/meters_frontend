@@ -1,42 +1,46 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import moment from 'moment';
 
-import { CompanyLogo } from './LoggedinPages';
 import { MainTitle } from './App';
 
 export default class MetersDetail extends React.Component {
 
     componentWillMount() {
-        this.props.getIncomingParcels();
+        this.props.getSingleMeter(this.props.match.params.id);
     }
 
     render() {
-        const { parcels } = this.props;
+        const { metrics } = this.props;
         return (
             <div>
-                {parcels.length !== 0 && (
+                {metrics.length !== 0 && (
                 <div>
-                    <MainTitle>Meters Detail</MainTitle>
+                    <MainTitle>Meters Detail ({metrics[0].meter.number})</MainTitle>
                         <Table responsive bordered condensed hover>
                             <thead>
                                 <tr>
-                                    <th>Meter</th>
                                     <th>Date</th>
-                                    <th>Water</th>
+                                    <th>{metrics[0].meter.type}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {parcels.map((item, index) => {
+                                {metrics.map((item, index) => {
                                     return (
                                         <tr key={item.id}>
-                                            <td>256663</td>
-                                            <td>April 2018</td>
-                                            <td>3333</td>
+                                            <td>{moment(item.createdAt).format('MMMM D Y HH:mm')}</td>
+                                            <td>{item.value}</td>
                                         </tr>
                                     );
                                 })}
                             </tbody>
                         </Table>
+                    </div>
+                )}
+                {metrics.length === 0 && (
+                    <div>
+                        <MainTitle>Meters Detail</MainTitle>
+                        <p>No readings available</p>
                     </div>
                 )}
             </div>

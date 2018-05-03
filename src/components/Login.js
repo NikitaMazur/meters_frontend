@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { AuthTitle, LoginButton } from './Auth';
 
@@ -9,7 +8,7 @@ export default class Login extends React.Component {
 
         this.state = {
             form: {
-                username: '',
+                login: '',
                 password: '',
             }
         }
@@ -36,7 +35,7 @@ export default class Login extends React.Component {
                 <AuthTitle>Log In</AuthTitle>
                 <ControlLabel>Email</ControlLabel>
                 <FormControl
-                    name="username"
+                    name="login"
                     type="text"
                     value={this.state.form.email}
                     onChange={this.onChangeHandler}

@@ -11,9 +11,11 @@ export const Login = (user) => {
             .end((err, res) => {
                 switch (res.statusCode) {
                     case 200:
-                        Cookies.set('AuthToken', res.text)
+                        Cookies.set('AuthToken', 'Bearer ' + res.body.token)
+                        Cookies.set('AuthRole', res.body.role)
                         dispatch({
-                            type: 'AUTH_USER_SUCCESS'
+                            type: 'AUTH_USER_SUCCESS',
+                            role: res.body.role
                         })
                         break;
 

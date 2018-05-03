@@ -1,17 +1,17 @@
 import MetersList from '../components/MetersList';
 import { connect } from 'react-redux';
-import { getParcels, changeStatus } from '../actions/parcels';
+import { getMeters } from '../actions/meters';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getParcels: (data) => {dispatch(getParcels(data))},
-        changeStatus: (data) => {dispatch(changeStatus(data))},
+        getMeters: (data) => {dispatch(getMeters(data))},
+        meterData: (data) => {dispatch({type: 'METER_DATA', meterData: data})}
     }
 }
 
 const mapStateToProps = state => {
     return {
-      parcels: state.parcels.parcels
+      meters: state.meters.meters
     }
   }
 

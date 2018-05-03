@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Table, FormGroup, FormControl, ControlLabel, HelpBlock , Button} from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock , Button} from 'react-bootstrap';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import FileBase64 from 'react-file-base64'
 
-import { CompanyLogo } from './LoggedinPages';
 import LocationSearchInput from './LocationSearchInput';
 import { Container, FullHeightWrapper, MainTitle } from './App';
+import { METER_PHOTO } from '../constants/img';
 
 const TrackingSubmitButton = styled(Button)`
     margin: 15px 0;
@@ -17,50 +18,101 @@ export default class EnterReadings extends React.Component {
         super(props);
 
         this.state = {
-            reference: '',
-            courier_name: '',
-            recipient_last_name: '',
+            geolocation: {
+                latitude: 0,
+                longitude: 0,
+            },
+            readings: {
+                meterId: '',
+                value: '',
+                picture: METER_PHOTO,
+            }
+
         }
     }
 
-    onChange(event) {
+    handleSelect = (address) => {
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => this.setState(
+                {
+                    geolocation: {
+                        latitude: latLng.lat,
+                        longitude: latLng.lng,
+                    }
+                },
+                () => this.props.getMetersByLocation(this.state.geolocation))
+            )
+            .catch(error => console.error('Error', error))
+    }
+
+    onChange = (event) => {
         let key = event.currentTarget;
         this.setState({
-            ...this.state,
-            [key.name]: key.value
+            readings: {
+                ...this.state.readings,
+                value: key.value,
+            }
         })
     }
 
-    onSubmit() {
-        this.props.searchParcels(this.state)
+    selectMeter = (event) => {
+        let key = event.currentTarget;
+        this.setState({
+            readings: {
+                ...this.state.readings,
+                meterId: key.value,
+            }
+        })
+    }
+
+    onSubmit = () => {
+        this.props.sendReadings(this.state.readings)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.metersByLocation.length > 0 && this.setState({
+            readings: {
+                ...this.state.readings,
+                meterId: nextProps.metersByLocation[0].id,
+            }
+        })
     }
 
     render() {
-        const { parcels } = this.props;
+        const { metersByLocation } = this.props;
         return (
             <FullHeightWrapper>
                 <Container>
                     <MainTitle>Meters Reading</MainTitle>
                     <FormGroup controlId="formBasicText">
-                        <ControlLabel>Location</ControlLabel>
-                        <LocationSearchInput />
-                        <HelpBlock></HelpBlock>
-                        <ControlLabel>Select meter</ControlLabel>
-                        <FormControl
-                            type="text"
-                            name="courier_name"
-                            value={this.state.courier}
-                            onChange={this.onChange.bind(this)}
-                        />
-                        <HelpBlock></HelpBlock>
-                        <ControlLabel>Readings</ControlLabel>
-                        <FormControl
-                            type="text"
-                            name="recipient_last_name"
-                            value={this.state.recipient_last_name}
-                            onChange={this.onChange.bind(this)}
-                        />
-                        <TrackingSubmitButton bsStyle="primary" type="button" onClick={this.onSubmit.bind(this)}>Submit</TrackingSubmitButton>
+                        <div>
+                            <ControlLabel>Location</ControlLabel>
+                            <LocationSearchInput handleSelect={this.handleSelect} />
+                            <HelpBlock></HelpBlock>
+                        </div>
+                        {metersByLocation.length > 0 && (
+                            <div>
+                                <ControlLabel>Select meter</ControlLabel>
+                                <FormControl componentClass="select" placeholder="select" onChange={this.selectMeter}>
+                                    {metersByLocation.map((item) => {
+                                        return <option value={item.id}>{item.number}</option>
+                                    })}
+                                </FormControl>
+                                <HelpBlock></HelpBlock>
+                                <ControlLabel>Readings</ControlLabel>
+                                <FormControl
+                                    type="text"
+                                    name="readings"
+                                    value={this.state.readings.value}
+                                    onChange={this.onChange}
+                                />
+                                <HelpBlock></HelpBlock>
+                                <FileBase64 />
+                                <HelpBlock></HelpBlock>
+                                <TrackingSubmitButton bsStyle="primary" type="button" onClick={this.onSubmit}>Submit</TrackingSubmitButton>
+                            </div>
+                        )}
                     </FormGroup>
                 </Container>
             </FullHeightWrapper>
