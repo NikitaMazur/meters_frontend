@@ -41,6 +41,10 @@ export default class EnterReadings extends Component {
         })
     }
 
+    componentWillUnmount() {
+        this.props.clearStorage();
+    }
+
     handleSelect = (address) => {
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))

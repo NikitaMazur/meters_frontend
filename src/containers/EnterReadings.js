@@ -8,12 +8,12 @@ const mapDispatchToProps = dispatch => {
         getMetersByLocation: loc => dispatch(getMetersByLocation(loc)),
         sendReadings: data => dispatch(sendReadings(data)),
         closeModal: () => dispatch({type: 'SHOW_READING_WARNING', warning: false}),
+        clearStorage: () => dispatch({type: 'GET_METERS_BY_LOCATION', metersByLocation: []}),
     }
 }
 
 const mapStateToProps = state => {
     return {
-      meters: state.meters.incomingmeters,
       metersByLocation: state.meters.metersByLocation,
       warning: state.meters.warning,
     }

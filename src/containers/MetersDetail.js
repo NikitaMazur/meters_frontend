@@ -5,6 +5,7 @@ import { getSingleMeter } from '../actions/meters';
 const mapDispatchToProps = dispatch => {
     return {
         getSingleMeter: id => dispatch(getSingleMeter(id)),
+        clearStorage: id => dispatch({type: 'GET_METRICS_DATA', metrics: null}),
     }
 }
 

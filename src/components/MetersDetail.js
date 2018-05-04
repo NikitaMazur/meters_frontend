@@ -10,11 +10,15 @@ export default class MetersDetail extends Component {
         this.props.getSingleMeter(this.props.match.params.id);
     }
 
+    componentWillUnmount() {
+        this.props.clearStorage();
+    }
+
     render() {
         const { metrics } = this.props;
         return (
             <div>
-                {metrics.length !== 0 && (
+                {metrics && metrics.length !== 0 && (
                 <div>
                     <MainTitle>Meters Detail ({metrics[0].meter.number})</MainTitle>
                         <Table responsive bordered condensed hover>
@@ -37,7 +41,7 @@ export default class MetersDetail extends Component {
                         </Table>
                     </div>
                 )}
-                {metrics.length === 0 && (
+                {metrics && metrics.length === 0 && (
                     <div>
                         <MainTitle>Meters Detail</MainTitle>
                         <p>No readings available</p>
